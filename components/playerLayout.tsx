@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import Sidebar from './sidebar';
+import PlayerBar from './playerBar';
 
 interface Props {
   children?: ReactNode;
@@ -32,9 +33,9 @@ const PlayerLayout = ({ children }: Props) => {
         flexDirection="column"
         justifyContent="center"
         alignItems="center"
-        style={{ backgroundColor: 'red' }}
+        style={{ backgroundColor: 'gray' }}
       >
-        <div>Player Bar</div>
+        <PlayerBar />
         <footer>
           App logo from <a href="https://www.vecteezy.com/">Vecteezy.com</a>
         </footer>
