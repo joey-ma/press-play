@@ -53,13 +53,25 @@ interface ServerSideProps {
 }
 
 export const getServerSideProps = async ({ query, req }: ServerSideProps) => {
-  const { id } = validateToken(req.cookies.P4L_ACCESS_TOKEN);
+  let user;
+
+  // handle error if token is no longer present or valid
+  try {
+    user = validateToken(req.cookies.P4L_ACCESS_TOKEN);
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: 'signin',
+      },
+    };
+  }
 
   // data: an [] of 1 obj
   const [data] = await prisma.playlist.findMany({
     where: {
       id: +query.id, //playlist id
-      userId: id, // only if the user's token is verified
+      userId: user.id, // only if the user's token is verified
     },
     include: {
       songs: {
