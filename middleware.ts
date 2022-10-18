@@ -10,7 +10,8 @@ export default function middleware(req: NextRequest) {
     // use of get required for Next.js > 12.2
     const token = req.cookies.get('P4L_ACCESS_TOKEN');
 
-    console.log('token', token);
+    if (process.env.NODE_ENV === 'development') console.log('token', token);
+
     if (!token) {
       const url = req.nextUrl.clone();
       url.pathname = '/signin';
