@@ -1,0 +1,65 @@
+{
+  "name": "press-play",
+  "version": "1.0.0",
+  "description": "building out a fullstack music player, spotify clone, using Next.js in TypeScript",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoyoyojoe/press-play.git"
+  },
+  "keywords": [],
+  "author": "Joey Ma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoyoyojoe/press-play/issues"
+  },
+  "homepage": "https://github.com/yoyoyojoe/press-play#readme",
+  "dependencies": {
+    "@chakra-ui/react": "^2.3.5",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@prisma/client": "4.4.0",
+    "bcrypt": "^5.1.0",
+    "cookie": "^0.5.0",
+    "format-duration": "^2.0.0",
+    "framer-motion": "^7.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "next": "12.3.1",
+    "prettier": "^2.7.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "reset-css": "^5.0.1",
+    "swr": "^1.3.0"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^12.3.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie": "^0.5.1",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "18.8.1",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.25.0",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.10",
+    "prisma": "^4.4.0",
+    "react-icons": "^4.4.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  }
+}
