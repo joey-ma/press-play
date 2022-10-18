@@ -1,8 +1,10 @@
 import '../styles/globals.css';
+import 'reset-css'; // used to remove the default browser styling and make the website look same on all browsers
 import type { AppProps } from 'next/app';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import 'reset-css';
+import { StoreProvider } from 'easy-peasy';
 import PlayerLayout from '../components/playerLayout';
+import { store } from '../lib/store';
 
 const theme = extendTheme({
   colors: {
@@ -39,13 +41,15 @@ const theme = extendTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      {Component.authPage ? (
-        <Component {...pageProps} />
-      ) : (
-        <PlayerLayout>
+      <StoreProvider store={store}>
+        {Component.authPage ? (
           <Component {...pageProps} />
-        </PlayerLayout>
-      )}
+        ) : (
+          <PlayerLayout>
+            <Component {...pageProps} />
+          </PlayerLayout>
+        )}
+      </StoreProvider>
     </ChakraProvider>
   );
 }
