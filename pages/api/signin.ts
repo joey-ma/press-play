@@ -54,5 +54,6 @@ export default async function signin(
   } else {
     res.status(401);
     res.json({ error: 'Email or password is wrong' });
+    // res.redirect('/signup');
   }
 }

@@ -5,34 +5,63 @@ import { useSWRConfig } from 'swr';
 import { auth } from '../lib/mutations';
 import NextImage from 'next/image';
 
-const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
+const AuthForm: FC<{
+  mode: 'signin' | 'signup';
+}> = ({ mode }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingSignin, setLoadingSignin] = useState(false);
+  const [loadingSignup, setLoadingSignup] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
+  const altButtonStatus = mode === 'signin' ? loadingSignup : loadingSignin;
   const router = useRouter();
 
-  const modeText = mode === 'signin' ? 'Sign In' : 'Sign Up';
+  if (process.env.NODE === 'development') {
+    console.log('mode:', mode);
+    console.log('loadingSignup:', loadingSignup);
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    setIsLoading(true);
+    if (mode === 'signin') setLoadingSignin(true);
+    if (mode === 'signup') setLoadingSignup(true);
 
-    await auth(mode, { email, password });
-    if (process.env.NODE === 'development')
+    const access = await auth(mode, { email, password });
+
+    const { id } = access;
+    if (id) router.push('/');
+
+    if (process.env.NODE === 'development') {
+      console.log(
+        `🚀 -> file: authForm.tsx -> line 28 -> handleSubmit -> access:`,
+        access
+      );
+
       console.log(
         '🚀 ~ file: authForm.tsx ~ line 23 ~ handleSubmit ~ mode, email, password:',
         mode,
         email,
         password
       );
+    }
 
-    setIsLoading(false);
-    router.push('/');
+    if (access.error !== undefined) {
+      if (access.error === 'Invalid request, or user already exists') {
+        setStatusMessage('Invalid request, or user already exists.');
+      }
+      if (access.error === 'Email or password is wrong') {
+        setStatusMessage('Signin failed.');
+      }
+    }
+
+    if (mode === 'signin') setLoadingSignin(false);
+    if (mode === 'signup') setLoadingSignup(false);
   };
 
   return (
     <Box height="100vh" width="100vw" bg="black">
       <Flex
+        id="app-header"
         justify="center"
         align="center"
         height="100px"
@@ -62,9 +91,17 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
           />
         </Box>
       </Flex>
-      <Flex justify="center" align="center" height="calc(100vh - 100px)">
+      <Flex
+        id="auth-form-container"
+        justify="center"
+        align="center"
+        height="calc(100vh - 150px)"
+      >
         <Box padding="50px" bg="gray.900" borderRadius="6px">
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            style={{ height: '300px', width: '300px' }}
+          >
             <FormLabel
               color="gray.400"
               display="flex"
@@ -72,7 +109,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
               marginBottom="10px"
               justifyContent="center"
             >
-              {modeText}
+              {mode === 'signin' ? 'Sign in' : 'Sign up'}
             </FormLabel>
             <FormLabel color="gray.400">Email</FormLabel>
             <Input
@@ -90,19 +127,55 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button
-              marginTop="10px"
-              type="submit"
-              bg="green.500"
-              isLoading={isLoading}
-              sx={{
-                '&:hover': {
-                  bg: 'green.300',
-                },
-              }}
-            >
-              {modeText}
-            </Button>
+            <Flex justifyContent="space-between">
+              {/* Main Button */}
+              <Button
+                type="submit"
+                bg="green.500"
+                isLoading={mode === 'signin' ? loadingSignin : loadingSignup}
+                marginTop="10px"
+                sx={{
+                  '&:hover': {
+                    bg: 'green.300',
+                  },
+                }}
+                width="6em"
+              >
+                {mode === 'signin' ? 'Sign in' : 'Sign up'}
+              </Button>
+              {/* Alt Button */}
+              <Button
+                type="button"
+                bg="green.500"
+                isLoading={altButtonStatus}
+                marginTop="10px"
+                sx={{
+                  '&:hover': {
+                    bg: 'green.300',
+                  },
+                }}
+                width="6em"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (mode === 'signin') {
+                    setLoadingSignup(true);
+                    router.push('/signup');
+                  }
+                  if (mode === 'signup') {
+                    setLoadingSignin(true);
+                    router.push('/signin');
+                  }
+                }}
+              >
+                {mode !== 'signin' ? 'Sign in' : 'Sign up'}
+              </Button>
+            </Flex>
+            {/* signin status for user */}
+            {statusMessage ? (
+              <Box marginTop="1em" color="crimson">
+                {statusMessage}
+              </Box>
+            ) : null}
           </form>
         </Box>
       </Flex>
@@ -113,62 +186,12 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
 export default AuthForm;
 
 // * Binding element 'mode' implicitly has an 'any' type.
-// export default function AuthForm({ mode }): FC<{ mode: 'signin' | 'signup' }> {
-//   const [email, setEmail] = useState();
-//   const [password, setPassword] = useState();
-//   const [isLoading, setIsLoading] = useState(false);
-//   const router = useRouter();
-
-//   const handleSubmit = async (e: any) => {
-//     e.preventDefault();
-//     setIsLoading(true);
-
-//     await auth(mode, { email, password });
-//     setIsLoading(false);
-//     router.push('/');
-//   };
-
-//   return (
-//     <Box height="100vh" width="100vw" bg="black">
-//       <Flex
-//         justify="center"
-//         align="center"
-//         height="100px"
-//         borderBottom="white 1px solid"
-//       >
-//         <NextImage src="/playground-svg.svg" height={60} width={120} />
-//       </Flex>
-//       <Flex justify="center" align="center" height="calc(100vh - 100px)">
-//         <Box padding="50px" bg="gray.900" borderRadius="6px">
-//           <form onSubmit={handleSubmit}>
-//             <Input
-//               marginBottom="10px"
-//               placeholder="email"
-//               type="email"
-//               onChange={(e) => setEmail(e.target.value)}
-//             />
-//             <Input
-//               marginY="10px"
-//               placeholder="password"
-//               type="password"
-//               onChange={(e) => setPassword(e.target.value)}
-//             />
-//             <Button
-//               marginTop="10px"
-//               type="submit"
-//               bg="green.500"
-//               isLoading={isLoading}
-//               sx={{
-//                 '&:hover': {
-//                   bg: 'green.300',
-//                 },
-//               }}
-//             >
-//               {mode === 'signin' ? 'Sign In' : 'Sign Up'}
-//             </Button>
-//           </form>
-//         </Box>
-//       </Flex>
-//     </Box>
-//   );
-// }
+/*  notes TypeScript syntax only
+    (for traditional export default function)
+export default function AuthForm1({
+  mode = 'signin',
+}): FC<{ mode: 'signin' | 'signup' }> {
+  const log = `Type 'Element' is not assignable to type 'FC<{ mode: "signin" | "signup"; }>'.
+  Type 'ReactElement<any, any>' provides no match for the signature '(props: { mode: "signin" | "signup"; }, context?: any): ReactElement<any, any> | null'.`
+  return <div>Notes only</div>;
+} */

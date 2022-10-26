@@ -13,11 +13,6 @@ export default async function signup(
 
   const { name, email, password } = req.body;
 
-  console.log(`data received from request body: 
-  name: ${name} 
-  email: ${email}, 
-  password: ${email}`);
-
   let user;
 
   try {
@@ -28,10 +23,18 @@ export default async function signup(
         password: bcrypt.hashSync(password, salt),
       },
     });
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`data received from request body: 
+      name: ${name} 
+      email: ${email}, 
+      password: ${email}`);
+
+      console.log('user created:', user);
+    }
   } catch (e) {
     res.status(401);
-    res.json({ error: 'Invalid request, or user already exists' });
-    return;
+    return res.json({ error: 'Invalid request, or user already exists' });
   }
 
   const token = jwt.sign(
