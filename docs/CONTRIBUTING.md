@@ -94,7 +94,7 @@ Congratulations :tada::tada: The Press-Play team thanks you :sparkles:.
 
 Once your PR is merged, your contributions will be publicly visible on the [`Press-Play`](https://github.com/yoyoyojoe/press-play) repo. 
 
-Now that you are part of the open source community, see other types of contributions[here](/contributing/types-of-contributions.md).
+Now that you are part of the open source community, see other types of contributions [here](/contributing/types-of-contributions.md).
 
 ## Windows
 
