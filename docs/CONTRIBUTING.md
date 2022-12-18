@@ -1,7 +1,7 @@
 # Welcome to Press-Play Contributing Guide
 <!-- referencing & following the format of GitHub Docs https://github.com/github/docs/blob/main/CONTRIBUTING.md -->
 
-Thank you for investing your time in contributing to my project! :kissing_heart: <!-- Any contribution you make will be reflected on [docs.github.com](https://docs.github.com/en) :sparkles:. -->
+Thank you for investing your time in exploring, and possibly contributing to my project! :kissing_heart: <!-- Any contribution you make will be reflected on [docs.github.com](https://docs.github.com/en) :sparkles:. -->
 
 Read our [Code of Conduct](./CODE_OF_CONDUCT.md) to keep our community approachable and respectable.
 
