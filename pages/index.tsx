@@ -22,7 +22,9 @@ const Home: FC<HomeProps> = ({ artists }) => {
   const { user } = useMe();
   // todo: more isLoading & error handling
 
-  // not entirely responsive at the moment
+  // todo: not entirely (100%) responsive at the moment
+  // I find that 80% of everyone who says their website is 100% responsive has some bugs
+  // I'd like to explore ways to get as close to that 100% as possible
   const responsiveTextHeight = () => {
     if (typeof window !== 'undefined') {
       // console.log(`${(1220 / window.innerWidth) * 6}em`);
@@ -40,7 +42,7 @@ const Home: FC<HomeProps> = ({ artists }) => {
       subtitle="profile"
       title={user?.name}
       image={user?.imageUrl}
-      description={`${user?.playlistCount} playlists to start your day`}
+      description={`Embrace lifelong learning. ${user?.playlistCount} playlists to start your day.`}
       roundImage
     >
       <Box color="white">
