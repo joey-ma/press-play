@@ -34,7 +34,10 @@ export default function GradientLayout({
             boxSize="150px"
             src={image}
             alt={
-              title !== undefined
+              // check if title is null or undefined
+              // null: not provided
+              // undefined: invalid input
+              title != undefined
                 ? title.toLowerCase().split(' ').join('-')
                 : 'null'
             }
