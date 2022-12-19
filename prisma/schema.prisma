@@ -15,10 +15,10 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   email     String     @unique
-  name      String
+  name      String?
   password  String
   playlists Playlist[]
-  imageUrl  String
+  imageUrl  String?
 }
 
 model Song {
