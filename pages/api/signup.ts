@@ -26,16 +26,62 @@ export default async function signup(
 
     if (process.env.NODE_ENV === 'development') {
       console.log(`data received from request body: 
-      name: ${name} 
-      email: ${email}, 
+      name: ${name}
+      email: ${email}
       password: ${email}`);
 
       console.log('user created:', user);
     }
   } catch (e) {
-    res.status(401);
-    return res.json({ error: 'Invalid request, or user already exists' });
+    console.log('error encountered validating signup');
+
+    const prismaError = {
+      ...(e as { code: string; meta: { target: [string] } }),
+    };
+
+    // console.log(prismaError);
+
+    // * security concerns aside, nice user feedback (not so good for bad actors)
+    // * currently provides a "hint" of what's wrong instead of explicitly stating it
+
+    if (
+      prismaError.code === 'P2002' &&
+      prismaError.meta.target[0] === 'email'
+    ) {
+      console.log('email already exists in db');
+      // client side: stored in const `access`
+      // currently displaying access.status & access.message
+      res.status(409); // needed to send http status
+      // return needed to exit code block
+      return res.json({
+        status: 409,
+        statusMessage: 'Request conflict',
+        error: 'Request conflict: user may already exist', // notes for debugging
+      });
+    }
+
+    if (user === undefined) {
+      console.log('database may be down');
+      // client side: stored in const `access`
+      // currently displaying access.status & access.message
+      res.status(500); // needed to send http status
+      // return needed to exit code block
+      return res.json({
+        status: 500,
+        statusMessage: 'Internal Server Error',
+        error: 'Internal Server Error: database may be down', // notes for debugging
+      });
+    }
+    // would create a different user experience
+    // but alternatively can redirect to '/signup' page, i.e.,
+    // res.redirect('/signin');
   }
+
+  // if there's no return statement within catch block,
+  // code will continue here, causing errors including:
+  // - 'ERR_HTTP_HEADERS_SENT'
+  // - 'ERR_STREAM_WRITE_AFTER_END'
+  // - 'TypeError: Cannot read properties of undefined (reading 'email')'
 
   const token = jwt.sign(
     {

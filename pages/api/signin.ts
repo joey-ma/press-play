@@ -17,8 +17,11 @@ export default async function signin(
     },
   });
 
-  if (process.env.NODE_ENV === 'development')
-    console.log('🚀 ~ file: signin.ts ~ line 19 ~ user:', user);
+  // server side:
+  if (process.env.NODE_ENV === 'development') {
+    console.log('🚀 ~ file: signin.ts ~ line 19 ~ user:');
+    console.log(user);
+  }
 
   if (user && bcrypt.compareSync(password, user.password)) {
     const token = jwt.sign(
@@ -52,8 +55,15 @@ export default async function signin(
 
     res.json(user);
   } else {
+    // client side:
+    // currently displaying res.status & message
     res.status(401);
-    res.json({ error: 'Email or password is wrong' });
+    res.json({
+      status: 401,
+      statusMessage: 'Invalid authorization',
+      error: 'Invalid authorization: Email or password may be wrong',
+    });
+    // alternatively, can redirect to /signup page; i.e.,
     // res.redirect('/signup');
   }
 }

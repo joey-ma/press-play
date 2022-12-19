@@ -15,7 +15,8 @@ export default function fetcher(url: string, data: any = undefined) {
         console.log('fetcher.js -> res status:', res.status);
 
         // todo: maybe handle more specific scenarios?
-        // 401: Unauthorized
+        // e.g., 401: Unauthorized
+        // * currently using error handling to provide feedback in `pages/api/signin` & `pages/api/signup`
         // if (res.status === 401) {
         //   console.log(res.url);
         //   console.log('res.statusText:', res.statusText); // Unauthorized
