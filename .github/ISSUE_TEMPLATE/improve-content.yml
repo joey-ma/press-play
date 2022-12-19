@@ -21,12 +21,12 @@ body:
       label: Code of Conduct
       description: This project has a Code of Conduct that all participants are expected to understand and follow.
       options:
-        - label: I have read and agree to the Press-Play project's [Code of Conduct](https://github.com/yoyoyojoe/press-play/blob/main/docs/CODE_OF_CONDUCT.md)
+        - label: I have read and agree to Press-Play project's [Code of Conduct](https://github.com/yoyoyojoe/press-play/blob/main/docs/CODE_OF_CONDUCT.md)
           required: true
 
   - type: textarea
     attributes:
-      label: What article / content on `press-play` is affected?
+      label: What article / content on Press-Play is affected?
       description: Please link to the article you'd like to see updated.
     validations:
       required: true
