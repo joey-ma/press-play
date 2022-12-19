@@ -1,6 +1,6 @@
 import { Box, Flex, Input, Button, FormLabel } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useState, useRef, useEffect } from 'react';
 import { useSWRConfig } from 'swr';
 import { auth } from '../lib/mutations';
 import NextImage from 'next/image';
@@ -8,6 +8,9 @@ import NextImage from 'next/image';
 const AuthForm: FC<{
   mode: 'signin' | 'signup';
 }> = ({ mode }) => {
+  // useRef for no re-rendering when user typing email / password
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loadingSignin, setLoadingSignin] = useState(false);
@@ -16,10 +19,10 @@ const AuthForm: FC<{
   const altButtonStatus = mode === 'signin' ? loadingSignup : loadingSignin;
   const router = useRouter();
 
-  if (process.env.NODE === 'development') {
-    console.log('mode:', mode);
-    console.log('loadingSignup:', loadingSignup);
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   console.log('mode:', mode);
+  //   console.log('loadingSignup:', loadingSignup);
+  // }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -31,27 +34,24 @@ const AuthForm: FC<{
     const { id } = access;
     if (id) router.push('/');
 
-    if (process.env.NODE === 'development') {
+    if (process.env.NODE_ENV === 'development') {
       console.log(
         `🚀 -> file: authForm.tsx -> line 28 -> handleSubmit -> access:`,
         access
       );
 
       console.log(
-        '🚀 ~ file: authForm.tsx ~ line 23 ~ handleSubmit ~ mode, email, password:',
+        '🚀 ~ file: authForm.tsx ~ line 23 ~ handleSubmit ~ mode, email, password:\n',
         mode,
         email,
+        // emailRef.current.value,
         password
+        // passwordRef.current.value
       );
     }
 
     if (access.error !== undefined) {
-      if (access.error === 'Invalid request, or user already exists') {
-        setStatusMessage('Invalid request, or user already exists.');
-      }
-      if (access.error === 'Email or password is wrong') {
-        setStatusMessage('Signin failed.');
-      }
+      setStatusMessage(`${access.status}: ${access.statusMessage}`);
     }
 
     if (mode === 'signin') setLoadingSignin(false);
@@ -116,6 +116,7 @@ const AuthForm: FC<{
               color="gray.400"
               marginBottom="10px"
               placeholder="email"
+              // ref={emailRef}
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -124,6 +125,7 @@ const AuthForm: FC<{
               color="gray.400"
               marginBottom="10px"
               placeholder="password"
+              // ref={passwordRef}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
