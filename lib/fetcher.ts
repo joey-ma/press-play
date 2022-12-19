@@ -9,20 +9,20 @@ export default function fetcher(url: string, data: any = undefined) {
     },
     body: JSON.stringify(data),
   }).then((res) => {
+    // client side:
     if (process.env.NODE_ENV === 'development')
-      console.log('res status:', res.status);
+      if (res.status > 399 || res.status < 200) {
+        console.log('fetcher.js -> res status:', res.status);
 
-    // todo: handle more user interactions
-    // 401: Unauthorized
-    // if (res.status === 401) {
-    //   console.log(res.url);
-    // }
+        // todo: maybe handle more specific scenarios?
+        // 401: Unauthorized
+        // if (res.status === 401) {
+        //   console.log(res.url);
+        //   console.log('res.statusText:', res.statusText); // Unauthorized
+        // }
 
-    if (res.status > 399 || res.status < 200) {
-      console.log('at url:', res.url);
-      console.log('res.status:', res.status);
-      // throw new Error();
-    }
+        // throw new Error();
+      }
 
     return res.json();
   });
