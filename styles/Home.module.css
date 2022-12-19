@@ -131,3 +131,25 @@
     filter: invert(1);
   }
 }
+
+.Typewriter {
+  --bg-opacity: 1;
+  --text-opacity: 1;
+  -webkit-text-size-adjust: 100%;
+  border: 0 solid #e2e8f0;
+  box-sizing: border-box;
+  color: rgba(247,250,252,var(--text-opacity));
+  font-family: Fira Mono,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* .Typewriter-wrapper {
+
+} */
+
+.Typewriter-cursor {
+  animation: Typewriter-cursor 1s infinite;
+  margin-left: 1px;
+}
