@@ -75,7 +75,7 @@ For more information about using a codespace for working on GitHub documentation
 
 ### Commit your update
 
-Commit the changes once you are happy with them. Don't forget to [self-review](/contributing/self-review.md) to speed up the review process:zap:.
+Commit the changes once you are happy with them. Don't forget to [self-review](https://github.com/github/docs/blob/main/contributing/self-review.md) to speed up the review process:zap:.
 
 ### Pull request
 
