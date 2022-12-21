@@ -28,6 +28,6 @@ assignees: ''
 
 ## Code of Conduct
 
-By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/yoyoyojoe/press-play/blob/main/docs/CODE_OF_CONDUCT.md)
+<p style="color:#8B949E">By submitting this issue, you agree to follow our Contributing Guide and Code of Conduct</p>
 
 - [ ] I agree to follow this project's [Contributing Guidelines](https://github.com/yoyoyojoe/press-play/blob/main/docs/CONTRIBUTING.md) and [Code of Conduct](https://github.com/yoyoyojoe/press-play/blob/main/docs/CODE_OF_CONDUCT.md) <span style="color:red">*</span>
