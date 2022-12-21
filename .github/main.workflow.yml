@@ -7,6 +7,6 @@ jobs:
     - name: Auto-close issues that did not follow issue template
       uses: roots/issue-closer@v1.1
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        # repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-close-message: "@${issue.user.login} this issue was automatically closed because it did not follow the issue template"
         issue-pattern: ".*I agree to follow this project's [Contributing Guidelines](https://github.com/yoyoyojoe/press-play/blob/main/docs/CONTRIBUTING.md) and [Code of Conduct](https://github.com/yoyoyojoe/press-play/blob/main/docs/CODE_OF_CONDUCT.md).*"
