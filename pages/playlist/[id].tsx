@@ -32,6 +32,11 @@ interface PlaylistProps {
 }
 
 const Playlist: FC<PlaylistProps> = ({ playlist }) => {
+  // const [currentPlaylist, setCurrentPlaylist] = useState(playlist?.songs);
+
+  // const test = shuffle(currentPlaylist);
+  // console.log('shuffled playlist songs:', test);
+
   const color = getBgColor(playlist?.id as number);
 
   return (

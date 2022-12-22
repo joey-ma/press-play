@@ -1,15 +1,16 @@
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { useStoreState } from 'easy-peasy';
 import React from 'react';
-import Player from './player';
+import PlayerControls from './playerControls';
 
 export default function PlayerBar() {
-  const songs = useStoreState((state: any) => state.activeSongs);
   const activeSong = useStoreState((state: any) => state.activeSong);
+  const activeSongs = useStoreState((state: any) => state.activeSongs);
+  const isShuffling = useStoreState((state: any) => state.isShuffling);
 
   return (
     <Box height="100px" width="100vw" bg="gray.900" padding="0.25em">
-      <Flex align="center">
+      <Flex align="flex-start">
         <Box padding="0.25em 1em" color="white" width="30%">
           {activeSong && (
             <React.Fragment>
@@ -21,7 +22,11 @@ export default function PlayerBar() {
 
         <Box width="40%" display="flex" justifyContent="center">
           {activeSong && (
-            <Player songs={songs} activeSong={activeSong}></Player>
+            <PlayerControls
+              songs={activeSongs}
+              activeSong={activeSong}
+              isShuffling={isShuffling}
+            ></PlayerControls>
           )}
         </Box>
         <Box
@@ -31,7 +36,7 @@ export default function PlayerBar() {
           justifyContent="flex-end"
           width="30%"
         >
-          More
+          {!activeSong && `Click to play a song`}
         </Box>
       </Flex>
     </Box>

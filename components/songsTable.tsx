@@ -4,17 +4,57 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { formatTime } from '../lib/formatter';
 import { useStoreActions } from 'easy-peasy';
+import { useStoreState } from 'easy-peasy';
+import { shuffle } from '../lib/mutations';
 
 const SongsTable = ({ songs }: any) => {
-  const setActiveSongs = useStoreActions(
-    (store: any) => store.changeActiveSongs
-  );
-  const setActiveSong = useStoreActions((store: any) => store.changeActiveSong);
+  // props: songs -> playlist.songs
+  console.log('props received in songs table, songs:', songs);
 
-  function handlePlay(activeSong?: 'string') {
-    setActiveSong(activeSong || songs[0]);
+  const [activeSong, setActiveSong] = [
+    useStoreState((store: any) => store.activeSong),
+    useStoreActions((store: any) => store.changeActiveSong),
+  ];
+  const [activeSongs, setActiveSongs] = [
+    useStoreState((store: any) => store.activeSongs),
+    useStoreActions((store: any) => store.changeActiveSongs),
+  ];
+  const [isShuffling, setIsShuffling] = [
+    useStoreState((state: any) => state.isShuffling),
+    useStoreActions((store: any) => store.changeIsShuffling),
+  ];
+  const [shuffledPlaylistSongs, setShuffledPlaylistSongs] = [
+    useStoreState((store: any) => store.shuffledPlaylistSongs),
+    useStoreActions((store: any) => store.changeShuffledPlaylistSongs),
+  ];
+
+  function handlePlay(activeSong?: any) {
+    console.log(
+      'handle play -> activeSong:',
+      activeSong, // undefined at first
+      'isShuffling',
+      isShuffling
+    );
+
+    // set active songs as ordered songs from playlist
     setActiveSongs(songs);
+
+    if (isShuffling) {
+      const shuffledSongs = shuffle(songs);
+      console.log(
+        `🚀 -> file: songsTable.tsx:40 -> handlePlay -> shuffledSongs`,
+        shuffledSongs
+      );
+      setActiveSong(activeSong || shuffledSongs[0]);
+      setShuffledPlaylistSongs(shuffledSongs);
+    } else {
+      setActiveSongs(songs);
+      setActiveSong(activeSong || songs[0]);
+    }
   }
+
+  // set ordered playlist songs in store to the currently selected playlist (on load)
+  // setOrderedPlaylistSongs(songs);
 
   return (
     <Box bg="transparent" color="white">
@@ -50,7 +90,10 @@ const SongsTable = ({ songs }: any) => {
                 }}
                 key={song.id}
                 cursor="pointer"
-                onClick={() => handlePlay(song)}
+                onClick={() => {
+                  // console.log('current song:', song, 'setting active song');
+                  handlePlay(song);
+                }}
               >
                 <Td>{i + 1}</Td>
                 <Td>{song.name}</Td>
