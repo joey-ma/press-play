@@ -9,4 +9,5 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-close-message: "@${issue.user.login} this issue was automatically closed because it did not follow the issue template"
-        issue-pattern: ".*I agree to follow this project's Contributing Guidelines and Code of Conduct.*"
+        issue-pattern: ".*I agree to follow this project's Contributing Guidelines and Code of Conduct.*" 
+        # markdown syntax for hyperlinks were not needed
