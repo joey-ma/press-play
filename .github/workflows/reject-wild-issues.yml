@@ -13,6 +13,6 @@ jobs:
         issue-close-message: "@${issue.user.login} this issue was automatically closed because it did not follow the issue template"
         issue-pattern: ".*I agree to follow this project's Contributing Guidelines and Code of Conduct.*"
         # markdown syntax for hyperlinks were not needed
-        close-issue-reason: not_planned
-        close-issue-label: wontfix
+        close-issue-label: wontfix # not yet supported
         # A sequence was not expected (i.e. [ "wontfix" ] won't work)
+        close-issue-reason: not_planned # not yet supported
