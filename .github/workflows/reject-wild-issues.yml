@@ -1,23 +1,2 @@
-name: Auto close issues or PRs not following the issue template
-on: 
-  issues:
-    types:
-      - opened
-      - edited
-jobs:
-  auto_close_issues:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-        issue-pattern: "*I agree to follow this project's Contributing Guidelines and Code of Conduct*"
-      - name: Automatically close issues that don't follow the issue template
-        uses: lucasbento/auto-close-issues@v1.0.2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-close-message: "@${issue.user.login}: hello! :wave:\n\nThis issue is being automatically closed because it does not follow the issue template." # optional property
-          closed-issues-label: "🙁 Not following issue template" # optional property
-
-# ref: 
-# - https://github.com/marketplace/actions/close-issue
-# - https://github.com/marketplace/actions/auto-close-issues
+- name: Issue auto-closer
+  uses: roots/issue-closer-action@v1.1
