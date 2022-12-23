@@ -28,3 +28,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
+
+# another workflow with helpful notes
+# https://github.com/Kurento/bugtracker/blob/master/.github/workflows/new-issue.yml
