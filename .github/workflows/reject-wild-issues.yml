@@ -12,4 +12,4 @@ jobs:
         issue-pattern: ".*I agree to follow this project's Contributing Guidelines and Code of Conduct.*"
         # markdown syntax for hyperlinks were not needed
         close-issue-reason: not_planned
-        close-issue-label: [ "wontfix" ]
+        close-issue-label: wontfix
