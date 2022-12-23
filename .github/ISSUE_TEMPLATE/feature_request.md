@@ -17,7 +17,11 @@ By submitting this issue, you agree to follow our Contributing Guide and Code of
 <!-- Is your feature request related to a problem? Please describe.
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
 
-## Suggested Solution
+## Steps to reproduce
+
+<!-- Describe how you arrived at your problem. -->
+
+## Suggested solution
 
 <!-- Describe a solution you'd like to see.
 A clear and concise description of what you want to happen. -->
@@ -27,7 +31,7 @@ A clear and concise description of what you want to happen. -->
 <!-- Describe alternatives you've considered.
 A clear and concise description of any alternative solutions or features you've considered. -->
 
-## Additional Context
+## Additional context
 
 <!-- Additional context of your feature request that can be helpful to developers or other users.
 Add any other context or screenshots about the feature request here. -->
