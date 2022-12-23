@@ -3,6 +3,8 @@ on: [issues, pull_request]
 jobs:
   autoclose:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
     - name: Autoclose issues that did not follow issue template
       uses: roots/issue-closer@v1.1
