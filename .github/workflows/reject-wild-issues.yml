@@ -13,3 +13,4 @@ jobs:
         # markdown syntax for hyperlinks were not needed
         close-issue-reason: not_planned
         close-issue-label: wontfix
+        # A sequence was not expected (i.e. [ "wontfix" ] won't work)
