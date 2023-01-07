@@ -4,9 +4,9 @@
   "description": "Press-Play, aka Player for Life, is a full stack music player, aka spotify-clone, built using TypeScript, Next.js (12.3.1), prisma (4.4.0), among other useful tools and libraries.",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "start": "next dev",
     "build": "next build",
-    "start": "next start",
+    "serve": "next start",
     "lint": "next lint"
   },
   "repository": {

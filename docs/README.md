@@ -111,7 +111,7 @@ Now you have a test database! To use your own database, see below [Developer's N
 To start the application in development mode, run: 
 
 ```
-npm run dev
+npm start
 ```
 
 Next.js built-in development server is automatically started when you run the default `next dev` command. By default, it starts a server at http://localhost:3000. If port 3000 is already in use, then a fallback port (e.g., 3001) will be used. After Next.js starts, the location where the dev server is listening will be printed to the terminal.
@@ -129,7 +129,7 @@ npm run build
 Then start application (but now in production mode).
 
 ```
-npm start
+npm run serve
 ```
 
 # Developer's Notes
